@@ -9,3 +9,14 @@ variable "instance_type" {
     default = "t3.micro"
     description = "this is instance type"
 }
+
+variable tags{
+    type = map
+    default = {
+        Name = "backend"
+        Project = "Expense"
+        Component = "backend"
+        Environment = "DEV"
+        terraform = "true"
+    }
+}

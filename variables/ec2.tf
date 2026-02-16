@@ -18,9 +18,7 @@ resource "aws_security_group" "allow_ssh_t" {
         ipv6_cidr_blocks = ["::/0"]
     }
 
-    tags = {
-        Name = "allow_tf"
-    }
+    tags = var.tags
 }
 
 resource "aws_instance" "terraform" {
@@ -28,7 +26,5 @@ resource "aws_instance" "terraform" {
     instance_type = var.instance_type
     vpc_security_group_ids = [aws_security_group.allow_ssh_t.id]
 
-    tags = {
-        Name = "terraform"
-    }
+    tags = var.tags
 }
