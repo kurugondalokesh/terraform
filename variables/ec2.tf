@@ -1,8 +1,8 @@
-resource "aws_security_group" "allow_ssh_terraform" {
-    name = "allow_sshh"
-    description = "allow all the ssh for terraform"
+resource "aws_security_group" "allow_ssh_t" {
+    name = "allow_tf"
+    description = "allow all trafficc from 22 port"
 
-    egress{
+    egress {
         from_port = 0
         to_port = 0
         protocol = "-1"
@@ -10,7 +10,7 @@ resource "aws_security_group" "allow_ssh_terraform" {
         ipv6_cidr_blocks = ["::/0"]
     }
 
-    ingress{
+    ingress {
         from_port = 22
         to_port = 22
         protocol = "tcp"
@@ -19,14 +19,14 @@ resource "aws_security_group" "allow_ssh_terraform" {
     }
 
     tags = {
-        Name = "allow_sshh"
+        Name = "allow_tf"
     }
 }
 
 resource "aws_instance" "terraform" {
-    ami = "ami-0220d79f3f480ecf5"
-    instance_type = "t3.micro"
-    vpc_security_group_ids = [aws_security_group.allow_ssh_terraform.id]
+    ami= var.ami_id
+    instance_type = var.instance_type
+    vpc_security_group_ids = [aws_security_group.allow_ssh_t.id]
 
     tags = {
         Name = "terraform"
