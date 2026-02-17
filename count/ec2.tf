@@ -1,10 +1,11 @@
 resource "aws_instance" "terraform" {
+    count = length(var.instance_names)
     ami= "ami-0220d79f3f480ecf5"
-    instance_type = var.environment == "prod" ? "t3.small" : "t3.micro"
+    instance_type = "t3.micro"
     vpc_security_group_ids = [aws_security_group.allow_ssh_t.id]
 
     tags = {
-        name = "terraform"
+        Name = var.instance_names[count.index]
     }
 }
 
@@ -29,6 +30,6 @@ resource "aws_security_group" "allow_ssh_t" {
     }
 
     tags = {
-      name = "allow_ssht"
+      Name = "allow_ssht"
     }
 }
